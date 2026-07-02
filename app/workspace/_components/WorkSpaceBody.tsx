@@ -5,9 +5,32 @@ import { UserContext } from "@/context/UserContext";
 import Image from "next/image";
 import React, { useContext } from "react";
 import EmptyFolder from "./EmptyFolder";
+import axios from "axios";
+import AddRepoDialog from "./AddRepoDialog";
+import { refresh } from "next/cache";
 
 const WorkSpaceBody = () => {
   const { user } = useContext(UserContext);
+
+  const [token, setToken] = React.useState<string | null>('');
+
+  React.useEffect(() => {
+    const GetGithubToken = async () => {
+      try {
+        const response = await axios.get("/api/github/token");
+        setToken(response.data.token);
+      } catch (error) {
+        console.error("Error fetching GitHub token:", error);
+        setToken('');
+      }
+    };
+    GetGithubToken();
+  }, []);
+
+  const onAddRepo = async () => {
+    window.location.assign("/api/github");
+  };
+
   return (
     <div className="p-4 ">
       <div className="flex justify-between items-center">
@@ -19,18 +42,17 @@ const WorkSpaceBody = () => {
 
       <Card className="mt-5 bg-purple-300 flex justify-between items-center p-4 border rounded-lg">
         <div className="flex text-black items-center gap-5">
-          <Image
-            src="/github.png"
-            alt="Github Image"
-            width={50}
-            height={50}
-          />
+          <Image src="/github.png" alt="Github Image" width={50} height={50} />
           <h2 className="text-lg font-semibold mt-2">
             Connect GitHub & Add Repo
           </h2>
         </div>
         <div>
-          <Button>+ Add</Button>
+          {token=="" ? (
+            <Button onClick={onAddRepo}>Connect to Github</Button>
+          ) : (
+            <AddRepoDialog setRefresh={(refresh:boolean) => console.log(refresh)}/>
+          )}
         </div>
       </Card>
 

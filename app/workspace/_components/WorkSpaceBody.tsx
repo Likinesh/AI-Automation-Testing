@@ -3,16 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserContext } from "@/context/UserContext";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import EmptyFolder from "./EmptyFolder";
 import axios from "axios";
-import AddRepoDialog from "./AddRepoDialog";
-import { refresh } from "next/cache";
+import AddRepoDialog, { Repo } from "./AddRepoDialog";
+import UserRepoList from "./UserRepoList";
 
 const WorkSpaceBody = () => {
   const { user } = useContext(UserContext);
+  const [token, setToken] = React.useState<string | null>("");
 
-  const [token, setToken] = React.useState<string | null>('');
+  const [repoList, setRepoList] = React.useState<Repo[]>([]);
 
   React.useEffect(() => {
     const GetGithubToken = async () => {
@@ -21,14 +22,23 @@ const WorkSpaceBody = () => {
         setToken(response.data.token);
       } catch (error) {
         console.error("Error fetching GitHub token:", error);
-        setToken('');
+        setToken("");
       }
     };
     GetGithubToken();
   }, []);
 
+  useEffect(() => {
+    user && GetRepoList();
+  }, [user]);
+
   const onAddRepo = async () => {
     window.location.assign("/api/github");
+  };
+
+  const GetRepoList = async () => {
+    const res = await axios.get("/api/user-repo?userId=" + user?.id);
+    setRepoList(res.data);
   };
 
   return (
@@ -48,19 +58,28 @@ const WorkSpaceBody = () => {
           </h2>
         </div>
         <div>
-          {token=="" ? (
+          {token == "" ? (
             <Button onClick={onAddRepo}>Connect to Github</Button>
           ) : (
-            <AddRepoDialog setRefresh={(refresh:boolean) => console.log(refresh)}/>
+            <AddRepoDialog
+              setRefresh={(refresh: boolean) => {
+                if (refresh) {
+                  GetRepoList();
+                }
+              }}
+            />
           )}
         </div>
       </Card>
-
-      <Card className="mt-10">
-        <CardContent>
-          <EmptyFolder />
-        </CardContent>
-      </Card>
+      {!repoList ? (
+        <Card className="mt-10">
+          <CardContent>
+            <EmptyFolder />
+          </CardContent>
+        </Card>
+      ) : (
+        <UserRepoList repoList={repoList} />
+      )}
     </div>
   );
 };

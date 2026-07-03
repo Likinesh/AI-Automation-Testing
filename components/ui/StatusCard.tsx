@@ -12,7 +12,7 @@ function StatusCard({
   bgColor: string
 }) {
   return (
-    <div className='border rounded-xl p-4 flex items-center justify-between bg-white'>
+    <div className='border rounded-xl p-4 flex items-center justify-between'>
       <div>
         <p className='text-sm text-gray-500'>{title}</p>
         <h3 className='text-2xl font-semibold mt-1'>{value}</h3>
@@ -24,3 +24,5 @@ function StatusCard({
     </div>
   )
 }
+
+export default StatusCard;

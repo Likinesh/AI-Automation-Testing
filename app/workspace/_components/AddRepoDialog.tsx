@@ -15,7 +15,7 @@ import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { useContext, useEffect, useMemo, useState } from "react";
 
-type Repo = {
+export type Repo = {
   id: number;
   name: string;
   full_name: string;
@@ -39,7 +39,7 @@ function AddRepoDialog({ setRefresh }: { setRefresh: (v: boolean) => void }) {
 
   const GetRepoList = async () => {
     const res = await axios.get("/api/github/repo");
-    console.log(res.data);
+    // console.log(res.data);
     setRepos(res.data);
   };
 

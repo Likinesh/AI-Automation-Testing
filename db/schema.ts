@@ -26,7 +26,7 @@ export const repositories = pgTable("repositories",{
 export const TestCasesTable = pgTable("test_cases", {
   id: serial("id").primaryKey(),
 
-  // User / project details
+  // User - project details
   userId: varchar("user_id", { length: 255 }).notNull(),
   repoId: varchar("repo_id", { length: 255 }),
   repoName: varchar("repo_name", { length: 255 }).notNull(),

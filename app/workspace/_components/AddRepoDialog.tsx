@@ -26,6 +26,8 @@ export type Repo = {
   language: string;
   default_branch: string;
   owner: string;
+  repoId?: number;
+  userId?: number;
 };
 
 function AddRepoDialog({ setRefresh }: { setRefresh: (v: boolean) => void }) {

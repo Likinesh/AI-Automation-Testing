@@ -28,6 +28,8 @@ export type Repo = {
   owner: string;
   repoId?: number;
   userId?: number;
+  target_domain?: string;
+  global_instruction?: string;
 };
 
 function AddRepoDialog({ setRefresh }: { setRefresh: (v: boolean) => void }) {
@@ -84,7 +86,7 @@ function AddRepoDialog({ setRefresh }: { setRefresh: (v: boolean) => void }) {
   }, []);
 
   return (
-    <Dialog open={open} onOpenChange={(v)=>setOpen(v)}>
+    <Dialog open={open} onOpenChange={(v) => setOpen(v)}>
       <DialogTrigger asChild>
         <Button>+ Add Repo</Button>
       </DialogTrigger>

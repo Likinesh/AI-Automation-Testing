@@ -3,9 +3,9 @@ import WorkSpaceBody from './_components/WorkSpaceBody'
 
 const WorkSpacePage = () => {
   return (
-    <div className="mx-auto max-w-3xl p-10">
+    <main className="flex-1 p-lg gap-gutter grid grid-cols-12 overflow-hidden h-[calc(100vh-64px)] w-full">
       <WorkSpaceBody />
-    </div>
+    </main>
   )
 }
 

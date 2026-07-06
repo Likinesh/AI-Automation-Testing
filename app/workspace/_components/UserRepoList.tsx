@@ -11,8 +11,11 @@ import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import {
   CheckCircle2,
+  Globe2Icon,
+  Link2Icon,
   ListChecks,
   Loader2,
+  Settings2,
   Sparkles,
   TrendingUp,
   XCircle,
@@ -20,6 +23,7 @@ import {
 import Image from "next/image";
 import React, { useContext, useState } from "react";
 import TestCaseList, { TestCase } from "./TestCaseList";
+import SettingRepo from "./SettingRepo";
 
 type StatusData = {
   totalTests: number;
@@ -28,15 +32,14 @@ type StatusData = {
   passRate: number;
 };
 
-const UserRepoList = ({ repoList }: { repoList: Repo[] }) => {
-
+const UserRepoList = ({ repoList, setReload }: { repoList: Repo[], setReload:() => void }) => {
   const [statusData, setStatusData] = useState<StatusData>({
     totalTests: 0,
     passedTests: 0,
     failedTests: 0,
-    passRate: 0
-  }); 
-  
+    passRate: 0,
+  });
+
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [testCaseLoading, setTestCaseLoading] = useState<boolean>(false);
 
@@ -64,12 +67,12 @@ const UserRepoList = ({ repoList }: { repoList: Repo[] }) => {
     }
   };
 
-  const GetTestCases = async (repoId: number) => {
+  const GetTestCases = async (repoId: number ) => {
     try {
       setisLoading(true);
       setTestCases([]);
       const res = await axios.get(`/api/testcases?repoId=${repoId}`);
-      
+
       const total = res.data.length;
       const passed = res.data.filter((t: any) => t.status === "passed").length;
       const failed = res.data.filter((t: any) => t.status === "failed").length;
@@ -79,8 +82,8 @@ const UserRepoList = ({ repoList }: { repoList: Repo[] }) => {
         totalTests: total,
         passedTests: passed,
         failedTests: failed,
-        passRate: passRate
-      })
+        passRate: passRate,
+      });
 
       setTestCases(res.data);
     } catch (error) {
@@ -120,8 +123,21 @@ const UserRepoList = ({ repoList }: { repoList: Repo[] }) => {
                 </div>
               </div>
             </AccordionTrigger>
+
             <AccordionContent>
               <div className="pt-4 space-y-5">
+                <div className="p-3 border rounded-xl flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Link2Icon className="h-5 w-5" />
+                    <h2 className="font-semibold text-sm"> Target Domain: </h2>
+                    <h2 className="font-light text-sm">
+                      {" "}
+                      {repo?.target_domain || "Not Available"}
+                    </h2>
+                  </div>
+                  <SettingRepo repo={repo} setReload={setReload} />
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <StatusCard
                     title="Total Tests"
@@ -152,35 +168,47 @@ const UserRepoList = ({ repoList }: { repoList: Repo[] }) => {
                   />
                 </div>
 
-                {!testCaseLoading && testCases.length > 0 && <TestCaseList testCases={testCases} onReload={(repoId) => GetTestCases(repoId)}/>}
+                {!testCaseLoading && testCases.length > 0 && (
+                  <TestCaseList
+                    testCases={testCases}
+                    onReload={(repoId) => GetTestCases(repoId)}
+                    repository={repo}
+                  />
+                )}
 
                 {testCaseLoading ? (
-                  <div className="flex items-center gap-4"><Loader2 className="animate-spin" /> <p className="text-sm text-gray-500"> Generating Test Cases...</p></div>
-                ) : (
-                  testCases.length === 0 && 
-
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border rounded-xl p-4">
-                    <div>
-                      <h3 className="font-medium">Generate AI Test Cases</h3>
-                      <p className="text-sm text-gray-500 mt-1">
-                        Analyze this repository and generate automated test
-                        cases using AI.
-                      </p>
-                    </div>
-
-                    <Button
-                      className="gap-2"
-                      disabled={isLoading}
-                      onClick={() => handleGenerateTestCases(repo)}
-                    >
-                      {isLoading ? (
-                        <Loader2 className="animate-spin" />
-                      ) : (
-                        <Sparkles className="h-4 w-4" />
-                      )}
-                      Generate Test Cases
-                    </Button>
+                  <div className="flex items-center gap-4">
+                    <Loader2 className="animate-spin" />{" "}
+                    <p className="text-sm text-gray-500">
+                      {" "}
+                      Generating Test Cases...
+                    </p>
                   </div>
+                ) : (
+                  testCases.length === 0 && (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border rounded-xl p-4">
+                      <div>
+                        <h3 className="font-medium">Generate AI Test Cases</h3>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Analyze this repository and generate automated test
+                          cases using AI.
+                        </p>
+                      </div>
+
+                      <Button
+                        className="gap-2"
+                        disabled={isLoading}
+                        onClick={() => handleGenerateTestCases(repo)}
+                      >
+                        {isLoading ? (
+                          <Loader2 className="animate-spin" />
+                        ) : (
+                          <Sparkles className="h-4 w-4" />
+                        )}
+                        Generate Test Cases
+                      </Button>
+                    </div>
+                  )
                 )}
               </div>
             </AccordionContent>

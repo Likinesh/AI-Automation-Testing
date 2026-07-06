@@ -1,4 +1,12 @@
-import { integer, jsonb, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  jsonb,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -8,19 +16,23 @@ export const users = pgTable("users", {
   credits: integer("credits").default(100).notNull(),
 });
 
-export const repositories = pgTable("repositories",{
-  id:serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id).notNull(),
+export const repositories = pgTable("repositories", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id")
+    .references(() => users.id)
+    .notNull(),
   repoId: integer("repo_id").notNull(),
-  name:text("name").notNull(),
+  name: text("name").notNull(),
   fullName: text("full_name").notNull(),
-  private_:integer("private").notNull(),
+  private_: integer("private").notNull(),
   htmlUrl: text("html_url").notNull(),
   description: text("description"),
-  updatedAt:timestamp("updated_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
   owner: text("owner").notNull(),
   language: text("language"),
   defaultBranch: text("default_branch"),
+  targetDomain: varchar("target_domain").default(""),
+  globalInstruction: text("global_instruction"),
 });
 
 export const TestCasesTable = pgTable("test_cases", {
@@ -47,6 +59,9 @@ export const TestCasesTable = pgTable("test_cases", {
   // Later you can update these fields
   browserbaseScript: text("browserbase_script"),
   status: varchar("status", { length: 100 }).default("generated"),
+  sessionId: varchar("session_id", { length: 255 }),
+  sessionUrl: text("session_url"),
+  logs: jsonb("logs").$type<string[]>(),
 
   createdAt: timestamp("created_at").defaultNow(),
 });

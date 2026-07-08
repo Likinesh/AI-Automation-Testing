@@ -9,6 +9,8 @@ import {
   SettingsIcon,
 } from "lucide-react";
 import React, { useState } from "react";
+import SettingsDialog from "./SettingsDialog";
+import TestExecutionModal from "./textExecution";
 
 export type TestCase = {
   id: number;
@@ -21,16 +23,21 @@ export type TestCase = {
   repoName: string;
   repoOwner: string;
   targetRoute: string;
+  status?: string;
+  browserbaseScript?: string;
 };
 
 const TestCaseList = ({
   testCases,
   onReload,
+  repository,
 }: {
   testCases: TestCase[];
   onReload: (repoId: number) => void;
+  repository?: any;
 }) => {
   const [selectedTestCase, isSelectedTastCase] = useState<TestCase[]>([]);
+  const [isExecutionModalOpen, setIsExecutionModalOpen] = useState(false);
 
   const handleSelected = (check: boolean, testCase: TestCase) => {
     if (check) {
@@ -68,22 +75,31 @@ const TestCaseList = ({
               </div>
             </div>
             <div className="gap-4 flex">
-              <Badge variant={"secondary"}>{testCase.type}</Badge>
-              <Badge variant={"secondary"}>Pending</Badge>
-              <Button size={"icon"} variant={"outline"}>
-                <SettingsIcon className="h-4 w-4" />
-              </Button>
+              <Badge variant={"secondary"}>{testCase?.type}</Badge>
+              { testCase?.status === "failed" &&<Badge variant={"destructive"} className="text-red-200 font-normal bg-red-700">{testCase?.status}</Badge>}
+              { testCase?.status === "passed" &&<Badge variant={"default"} className="text-green-200 font-normal bg-green-700">{testCase?.status}</Badge>}
+              { testCase?.status === "running" &&<Badge variant={"secondary"} className="text-yellow-200 font-normal bg-yellow-700">{testCase?.status}</Badge>}
+              <SettingsDialog testcase={testCase} setReload={() => onReload(testCase.repoId)}/>
             </div>
           </div>
         ))}
         <div className="p-4 flex items-center justify-between">
           <h2 className="font-medium">Run Selected Test Case</h2>
-          <Button disabled={selectedTestCase.length == 0} className="bg-purple-400 hover:bg-purple-700">
+          <Button disabled={selectedTestCase.length == 0} onClick={() => setIsExecutionModalOpen(true)} className="bg-purple-400 hover:bg-purple-700">
             <Play className="h-4 w-4 mr-2"/>
             Run Selected
           </Button>
         </div>
       </div>
+      
+      {isExecutionModalOpen && (
+        <TestExecutionModal
+          isOpen={isExecutionModalOpen}
+          onClose={() => setIsExecutionModalOpen(false)}
+          testCases={selectedTestCase}
+          repository={repository}
+        />
+      )}
     </div>
   );
 };

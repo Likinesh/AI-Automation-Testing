@@ -41,6 +41,8 @@ export async function GET(req: NextRequest){
         html_url: r.htmlUrl,
         updated_at: r.updatedAt,
         default_branch: r.defaultBranch,
+        target_domain: r.targetDomain,
+        global_instruction: r.globalInstruction,
     }));
     return NextResponse.json(mappedResult);
 }

@@ -52,6 +52,110 @@
       height: 0;
     }
   }
+
+  /* ═══════════════════════════════════════════════
+     Terminal Architect Design System — Custom Tokens
+     ═══════════════════════════════════════════════ */
+
+  /* Custom Spacing */
+  --spacing-margin-desktop: 40px;
+  --spacing-margin-mobile: 16px;
+  --spacing-container-max: 1440px;
+  --spacing-gutter: 24px;
+  --spacing-unit: 4px;
+
+  /* Custom Font Families */
+  --font-display-lg: "Inter", sans-serif;
+  --font-headline-md: "Inter", sans-serif;
+  --font-headline-md-mobile: "Inter", sans-serif;
+  --font-title-sm: "Inter", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-code-md: "Space Grotesk", monospace;
+  --font-label-caps: "Space Grotesk", monospace;
+  --font-label-sm: "Space Grotesk", monospace;
+
+  /* Custom Font Sizes */
+  --font-size-display-lg: 48px;
+  --font-size-display-lg--line-height: 56px;
+  --font-size-display-lg--letter-spacing: -0.02em;
+
+  --font-size-headline-md: 32px;
+  --font-size-headline-md--line-height: 40px;
+  --font-size-headline-md--letter-spacing: -0.01em;
+
+  --font-size-headline-md-mobile: 24px;
+  --font-size-headline-md-mobile--line-height: 32px;
+
+  --font-size-title-sm: 18px;
+  --font-size-title-sm--line-height: 24px;
+
+  --font-size-body-md: 16px;
+  --font-size-body-md--line-height: 24px;
+
+  --font-size-code-md: 14px;
+  --font-size-code-md--line-height: 20px;
+
+  --font-size-label-caps: 12px;
+  --font-size-label-caps--line-height: 16px;
+  --font-size-label-caps--letter-spacing: 0.1em;
+
+  --font-size-label-sm: 11px;
+  --font-size-label-sm--line-height: 14px;
+
+  /* AutoPilot QA Glassmorphism Tokens */
+  --color-primary-fixed: #c3f400;
+  --color-outline-variant: #444933;
+  --color-surface-bright: #3a3939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-on-background: #e5e2e1;
+  --color-on-primary-fixed: #161e00;
+  --color-on-primary-container: #556d00;
+  --color-background: #131313;
+  --color-surface-container-highest: #353534;
+  --color-surface-variant: #353534;
+  --color-error: #ffb4ab;
+  --color-tertiary-fixed: #e4e2e1;
+  --color-inverse-surface: #e5e2e1;
+  --color-surface-container-high: #2a2a2a;
+  --color-secondary-fixed: #e5e2e1;
+  --color-on-primary-fixed-variant: #3c4d00;
+  --color-on-tertiary: #303030;
+  --color-surface-dim: #131313;
+  --color-secondary-container: #474746;
+  --color-on-error-container: #ffdad6;
+  --color-tertiary-fixed-dim: #c8c6c5;
+  --color-tertiary-container: #e4e2e1;
+  --color-on-tertiary-fixed: #1b1c1c;
+  --color-surface-tint: #abd600;
+  --color-primary: #ffffff;
+  --color-inverse-on-surface: #313030;
+  --color-tertiary: #ffffff;
+  --color-secondary: #c8c6c5;
+  --color-primary-container: #c3f400;
+  --color-on-surface: #e5e2e1;
+  --color-on-secondary: #313030;
+  --color-on-tertiary-fixed-variant: #474746;
+  --color-surface: #131313;
+  --color-on-secondary-container: #b7b5b4;
+  --color-on-surface-variant: #c4c9ac;
+  --color-error-container: #93000a;
+  --color-surface-container: #201f1f;
+  --color-on-primary: #283500;
+  --color-surface-container-low: #1c1b1b;
+  --color-on-error: #690005;
+  --color-on-tertiary-container: #656464;
+  --color-primary-fixed-dim: #abd600;
+  --color-secondary-fixed-dim: #c8c6c5;
+  --color-on-secondary-fixed-variant: #474746;
+  --color-on-secondary-fixed: #1c1b1b;
+  --color-inverse-primary: #506600;
+  --color-outline: #8e9379;
+
+  --animate-cursor-blink: blink 1s step-end infinite;
+  @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+  }
 }
 
 :root {
@@ -130,4 +234,166 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ═══════════════════════════════════════════════
+   Terminal Architect — Landing Page Utility Classes
+   ═══════════════════════════════════════════════ */
+
+/* Material Symbols Outlined icon font */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  display: inline-block;
+  vertical-align: middle;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+}
+
+/* Custom color utility classes — Terminal Architect palette */
+.text-ta-primary { color: #feffec; }
+.bg-ta-primary { background-color: #feffec; }
+.text-primary-container { color: #c6f135; }
+.bg-primary-container { background-color: #c6f135; }
+.text-on-primary-container { color: #556b00; }
+.bg-on-primary-container { background-color: #556b00; }
+.bg-surface-container-lowest { background-color: #0e0e0e; }
+.bg-surface-container { background-color: #201f1f; }
+.bg-surface-container-low { background-color: #1c1b1b; }
+.text-on-surface { color: #e5e2e1; }
+.text-ta-secondary { color: #c8c6c5; }
+.text-secondary-fixed-dim { color: #c8c6c5; }
+
+/* Glass panel effect */
+.glass-panel {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow: 0 0 15px rgba(198, 241, 53, 0.15);
+}
+.neon-glow-hover:hover {
+  box-shadow: 0 0 25px rgba(198, 241, 53, 0.3);
+}
+
+/* Terminal background */
+.terminal-bg {
+  background-color: #050505;
+}
+
+/* Pulsing neon dot animation */
+@keyframes pulse-neon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.pulse-dot {
+  animation: pulse-neon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   AutoPilot QA Workspace — Glassmorphism Utilities
+   ═══════════════════════════════════════════════ */
+
+.terminal-panel {
+  background: rgba(14, 14, 14, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(142, 147, 121, 0.15);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(195, 244, 0, 0.5);
+}
+
+/* Custom Scrollbar for Terminal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(68, 73, 51, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(68, 73, 51, 0.6);
+}
+
+/* Landing Page Specific Glassmorphism Utilities */
+.glow-orb {
+    position: absolute;
+    background: radial-gradient(circle, rgba(204, 255, 0, 0.05) 0%, rgba(14, 14, 14, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(40px);
+}
+.orb-1 { top: -200px; left: -100px; width: 600px; height: 600px; }
+.orb-2 { bottom: 10%; right: -200px; width: 800px; height: 800px; }
+.orb-3 { top: 40%; left: 20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(204, 255, 0, 0.03) 0%, rgba(14, 14, 14, 0) 70%);}
+
+.glass-button-outline {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+.glass-button-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(204, 255, 0, 0.5);
+}
+
+.neon-btn {
+    background-color: var(--color-primary-fixed);
+    color: var(--color-surface);
+    box-shadow: 0 0 15px rgba(195, 244, 0, 0.4);
+    transition: all 0.3s ease;
+}
+.neon-btn:hover {
+    box-shadow: 0 0 25px rgba(195, 244, 0, 0.6);
+    transform: translateY(-2px);
+}
+
+.tilt-container {
+    perspective: 1000px;
+}
+.tilt-card {
+    transform: rotateX(15deg) rotateY(-15deg);
+    transform-style: preserve-3d;
+    box-shadow: -20px 30px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(195, 244, 0, 0.15);
+    transition: transform 0.5s ease;
+}
+.tilt-container:hover .tilt-card {
+    transform: rotateX(5deg) rotateY(-5deg);
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee-content {
+    display: inline-flex;
+    animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }

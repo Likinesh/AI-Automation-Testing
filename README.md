@@ -15,8 +15,8 @@
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
-- **UI Library**: React 19, [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (Radix Primitives)
-- **Database**: [PostgreSQL](https://postgresql.org/) (Serverless via Neon), [Drizzle ORM](https://orm.drizzle.team/)
+- **UI Library**: [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (Radix Primitives)
+- **Database**: [PostgreSQL](https://postgresql.org/), [Drizzle ORM](https://orm.drizzle.team/)
 - **Authentication**: [Clerk](https://clerk.dev/)
 - **AI Engine**: Google Gen AI SDK (`@google/genai`)
 - **Testing Engine**: [Playwright](https://playwright.dev/) (`playwright-core`)
@@ -50,10 +50,12 @@ Ensure you have the following installed:
    cp .env.example .env
    ```
    *Required Keys:*
+   - App Config: `NEXT_PUBLIC_APP_URL`
    - Clerk: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`
    - Database: `DATABASE_URL` (Neon Postgres)
    - Browserbase: `BROWSERBASE_API_KEY`, `BROWSERBASE_PROJECT_ID`
    - Google AI: `GEMINI_API_KEY`
+   - GitHub OAuth: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_REDIRECT_URI`
 
 4. **Initialize the database:**
    Push the schema to your database using Drizzle:
@@ -87,5 +89,5 @@ Ensure you have the following installed:
 ├── drizzle.config.ts     # Drizzle ORM configuration
 ├── next.config.ts        # Next.js configuration
 ├── package.json          # Project dependencies and scripts
-└── tailwind.config.js    # Tailwind configuration (if applicable)
+└── proxy.ts         # Clerk Authentication Middleware
 ```

@@ -95,7 +95,6 @@ const UserRepoList = ({ repoList, setReload }: { repoList: Repo[], setReload:() 
 
   return (
     <div className="mt-5">
-      <h2 className="my-3 font-medium">Your Repositories</h2>
       <Accordion
         type="single"
         collapsible
@@ -105,67 +104,79 @@ const UserRepoList = ({ repoList, setReload }: { repoList: Repo[], setReload:() 
           <AccordionItem
             key={repo.repoId!}
             value={repo.repoId!.toString()}
-            className="border px-5 rounded-xl mt-3"
+            className="glass-panel border-outline-variant/30 px-5 rounded-xl mt-3 mb-2"
           >
-            <AccordionTrigger>
+            <AccordionTrigger className="hover:no-underline py-4">
               <div className="flex items-center gap-5">
                 <Image
                   src={"/github.png"}
                   alt="Github"
                   width={30}
                   height={30}
+                  className="rounded-full invert opacity-80"
                 />
                 <div className="flex flex-col items-start gap-1">
-                  <h2>{repo.name}</h2>
-                  <p className="text-xs font-gray-500">
-                    {repo.default_branch} * {repo.language}
+                  <h2 className="font-headline-md text-[18px] text-on-surface">{repo.name}</h2>
+                  <p className="font-label-md text-[12px] text-on-surface-variant/70 uppercase">
+                    {repo.default_branch} • {repo.language}
                   </p>
                 </div>
               </div>
             </AccordionTrigger>
 
             <AccordionContent>
-              <div className="pt-4 space-y-5">
-                <div className="p-3 border rounded-xl flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Link2Icon className="h-5 w-5" />
-                    <h2 className="font-semibold text-sm"> Target Domain: </h2>
-                    <h2 className="font-light text-sm">
-                      {" "}
-                      {repo?.target_domain || "Not Available"}
-                    </h2>
+              <div className="pt-2 pb-6 space-y-6">
+                <div className="p-4 bg-surface-container-highest/30 border border-outline-variant/20 rounded-xl flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-2 text-on-surface-variant">
+                    <Link2Icon className="h-4 w-4" />
+                    <span className="font-label-md text-[12px] uppercase tracking-wider">Target Domain:</span>
+                    <span className="font-code-sm text-[13px] text-primary-fixed bg-primary-fixed/10 px-2 py-0.5 rounded">
+                      {repo?.target_domain || "Not Configured"}
+                    </span>
                   </div>
                   <SettingRepo repo={repo} setReload={setReload} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <StatusCard
-                    title="Total Tests"
-                    value={statusData?.totalTests}
-                    icon={<ListChecks className="h-5 w-5 text-blue-600" />}
-                    bgColor="bg-blue-200"
-                  />
+                  <div className="glass-panel border-outline-variant/20 p-4 rounded-xl flex items-center gap-4">
+                    <div className="w-10 h-10 rounded bg-surface-variant/50 flex items-center justify-center">
+                      <ListChecks className="h-5 w-5 text-on-surface-variant" />
+                    </div>
+                    <div>
+                      <p className="font-label-md text-[12px] uppercase text-on-surface-variant">Total Tests</p>
+                      <p className="font-headline-md text-[24px] text-on-surface">{statusData?.totalTests}</p>
+                    </div>
+                  </div>
 
-                  <StatusCard
-                    title="Passed"
-                    value={statusData?.passedTests}
-                    icon={<CheckCircle2 className="h-5 w-5 text-green-600" />}
-                    bgColor="bg-green-200"
-                  />
+                  <div className="glass-panel border-outline-variant/20 p-4 rounded-xl flex items-center gap-4">
+                    <div className="w-10 h-10 rounded bg-primary-fixed/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-5 w-5 text-primary-fixed" />
+                    </div>
+                    <div>
+                      <p className="font-label-md text-[12px] uppercase text-on-surface-variant">Passed</p>
+                      <p className="font-headline-md text-[24px] text-on-surface">{statusData?.passedTests}</p>
+                    </div>
+                  </div>
 
-                  <StatusCard
-                    title="Failed"
-                    value={statusData?.failedTests}
-                    icon={<XCircle className="h-5 w-5 text-red-600" />}
-                    bgColor="bg-red-200"
-                  />
+                  <div className="glass-panel border-outline-variant/20 p-4 rounded-xl flex items-center gap-4">
+                    <div className="w-10 h-10 rounded bg-error/10 flex items-center justify-center">
+                      <XCircle className="h-5 w-5 text-error" />
+                    </div>
+                    <div>
+                      <p className="font-label-md text-[12px] uppercase text-on-surface-variant">Failed</p>
+                      <p className="font-headline-md text-[24px] text-on-surface">{statusData?.failedTests}</p>
+                    </div>
+                  </div>
 
-                  <StatusCard
-                    title="Pass Rate"
-                    value={`${statusData?.passRate}%`}
-                    icon={<TrendingUp className="h-5 w-5 text-purple-600" />}
-                    bgColor="bg-purple-200"
-                  />
+                  <div className="glass-panel border-outline-variant/20 p-4 rounded-xl flex items-center gap-4">
+                    <div className="w-10 h-10 rounded bg-surface-variant/50 flex items-center justify-center">
+                      <TrendingUp className="h-5 w-5 text-on-surface-variant" />
+                    </div>
+                    <div>
+                      <p className="font-label-md text-[12px] uppercase text-on-surface-variant">Pass Rate</p>
+                      <p className="font-headline-md text-[24px] text-on-surface">{Math.round(statusData?.passRate)}%</p>
+                    </div>
+                  </div>
                 </div>
 
                 {!testCaseLoading && testCases.length > 0 && (
@@ -177,36 +188,35 @@ const UserRepoList = ({ repoList, setReload }: { repoList: Repo[], setReload:() 
                 )}
 
                 {testCaseLoading ? (
-                  <div className="flex items-center gap-4">
-                    <Loader2 className="animate-spin" />{" "}
-                    <p className="text-sm text-gray-500">
-                      {" "}
-                      Generating Test Cases...
+                  <div className="flex items-center justify-center gap-4 py-8">
+                    <Loader2 className="animate-spin text-primary-fixed w-6 h-6" />
+                    <p className="font-code-sm text-[13px] text-on-surface-variant">
+                      Analyzing Repository & Generating AI Test Cases...
                     </p>
                   </div>
                 ) : (
                   testCases.length === 0 && (
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border rounded-xl p-4">
-                      <div>
-                        <h3 className="font-medium">Generate AI Test Cases</h3>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Analyze this repository and generate automated test
-                          cases using AI.
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-primary-fixed/30 bg-primary-fixed/5 rounded-xl p-6 relative overflow-hidden">
+                      <div className="absolute -right-10 -top-10 w-32 h-32 bg-primary-fixed/10 blur-[30px] rounded-full pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="font-headline-md text-[18px] text-on-surface">Generate AI Test Suites</h3>
+                        <p className="font-body-md text-[14px] text-on-surface-variant mt-1 max-w-md">
+                          Let AutoPilot analyze your codebase structure and automatically generate robust E2E test scenarios.
                         </p>
                       </div>
 
-                      <Button
-                        className="gap-2"
+                      <button
+                        className="neon-btn gap-2 px-6 py-3 rounded font-label-md text-[12px] uppercase font-bold flex items-center relative z-10"
                         disabled={isLoading}
                         onClick={() => handleGenerateTestCases(repo)}
                       >
                         {isLoading ? (
-                          <Loader2 className="animate-spin" />
+                          <Loader2 className="animate-spin w-4 h-4" />
                         ) : (
                           <Sparkles className="h-4 w-4" />
                         )}
-                        Generate Test Cases
-                      </Button>
+                        Generate Now
+                      </button>
                     </div>
                   )
                 )}

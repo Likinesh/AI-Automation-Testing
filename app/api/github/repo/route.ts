@@ -15,8 +15,10 @@ export async function GET(){
         const res = await fetch(
             `https://api.github.com/user/repos?per_page=100&page=${page}&sort=updated`,{
                 headers:{
-                    Authorization:`Bearer ${token}`,
-                    Accept:'application/vnd.github+json'
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/vnd.github+json",
+                    "User-Agent": "AutoPilot-QA-App",
+                    "X-GitHub-Api-Version": "2022-11-28"
                 }
             }
         );

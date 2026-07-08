@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
+import NavBar from "@/components/NavBar";
+
 export default function LandingPage() {
   return (
     <div className="bg-surface-container-lowest text-on-surface relative min-h-screen flex flex-col font-body-md overflow-x-hidden">
@@ -11,45 +13,10 @@ export default function LandingPage() {
       <div className="glow-orb orb-2"></div>
       <div className="glow-orb orb-3"></div>
 
-      {/* TopNavBar */}
-      <nav className="bg-surface-glass w-full top-0 sticky z-50 backdrop-blur-xl border-b border-outline-variant/20">
-        <div className="flex justify-between items-center w-full px-lg py-md max-w-[1440px] mx-auto z-50">
-          {/* Brand */}
-          <div className="font-headline-md text-[20px] font-bold tracking-tighter text-on-surface flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary-fixed" style={{ fontVariationSettings: "'FILL' 1" }}>
-              terminal
-            </span>
-            AUTOPILOT
-          </div>
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
-            <a className="text-primary-fixed font-bold border-b-2 border-primary-fixed pb-1 hover:text-primary-fixed transition-colors duration-300 font-label-md text-[12px] uppercase" href="#">
-              Platform
-            </a>
-            <a className="text-on-surface-variant font-medium pb-1 hover:text-primary-fixed transition-colors duration-300 font-label-md text-[12px] uppercase" href="#">
-              Features
-            </a>
-            <a className="text-on-surface-variant font-medium pb-1 hover:text-primary-fixed transition-colors duration-300 font-label-md text-[12px] uppercase" href="#">
-              Integrations
-            </a>
-            <a className="text-on-surface-variant font-medium pb-1 hover:text-primary-fixed transition-colors duration-300 font-label-md text-[12px] uppercase" href="#">
-              Pricing
-            </a>
-          </div>
-          {/* Trailing Action */}
-          <div className="flex items-center gap-4">
-            <UserButton />
-            <Link href="/workspace">
-              <button className="neon-btn font-label-md text-[12px] uppercase rounded px-4 py-2 scale-95 active:scale-90 transition-transform font-bold">
-                Get Started
-              </button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <NavBar />
 
       {/* Main Content */}
-      <main className="flex-grow flex flex-col items-center justify-center pt-24 pb-16 px-6 sm:px-12 w-full max-w-[1440px] mx-auto">
+      <main className="flex-grow flex flex-col items-center justify-center pt-32 mt-10 lg:pt-40 pb-16 px-6 sm:px-12 w-full max-w-[1440px] mx-auto">
         {/* Hero Section */}
         <section className="w-full flex flex-col lg:flex-row items-center justify-between gap-16 mb-32 relative z-10">
           {/* Hero Copy */}
@@ -162,7 +129,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Grid */}
-        <section className="w-full flex flex-col items-center mb-24 z-10">
+        <section id="features" className="w-full flex flex-col items-center mb-24 z-10 scroll-mt-24">
           <h2 className="font-headline-lg text-[24px] md:text-[30px] font-bold text-on-surface mb-12 text-center">
             Engineered for Modern QA
           </h2>
